@@ -1,0 +1,184 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   VINT — Tailwind theme
+   The design tokens live here and nowhere else. Every value below becomes a
+   Tailwind utility (`bg-burgundy`, `text-2xl`, `rounded-lg`, `shadow-md`…),
+   so components pick a step off a scale instead of guessing a raw value.
+   ========================================================================== */
+
+@theme {
+  /* ---------- Brand palette ---------- */
+  --color-cream: #f6f5d8;          /* page background */
+  --color-cream-deep: #ededcf;     /* card image wells, alternating bands */
+  --color-ivory: #f7f1e3;          /* panels, forms */
+  --color-ivory-soft: #fbf8ee;     /* raised cards on cream */
+  --color-warm-gray: #ddd8d2;      /* navbar, subtle fills */
+  --color-warm-gray-deep: #c9c2b9; /* borders on warm surfaces */
+
+  --color-burgundy: #430005;       /* primary */
+  --color-burgundy-mid: #5b0b10;   /* hover / gradients */
+  --color-burgundy-bright: #7a1520;/* accents, focus rings */
+  --color-ink: #0d0d0d;            /* footer, admin sidebar */
+  --color-gold: #b08d34;           /* fine rules, accents */
+
+  /* ---------- Text ---------- */
+  --color-body: #34211c;
+  --color-muted: #6f5c53;
+  --color-faint: #927f75;
+  --color-on-dark: #f7f1e3;
+  --color-on-dark-muted: rgb(247 241 227 / 0.76);
+
+  /* ---------- Lines ---------- */
+  --color-line: rgb(67 0 5 / 0.14);
+  --color-line-soft: rgb(67 0 5 / 0.08);
+  --color-line-strong: rgb(67 0 5 / 0.28);
+
+  /* ---------- Status ---------- */
+  --color-success: #2f6b3f;
+  --color-success-soft: #e3f0e6;
+  --color-warning: #8a5a12;
+  --color-warning-soft: #f8eeda;
+  --color-info: #2c5670;
+  --color-info-soft: #e2edf3;
+  --color-danger: #8c1d1d;
+  --color-danger-soft: #f7e4e4;
+
+  /* ---------- Typography ---------- */
+  --font-serif: var(--font-playfair), 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-manrope), 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Fluid type scale. clamp() keeps headings readable on phones without a
+     media query for every size, so there is one step per role, not per screen. */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1rem;
+  --text-lg: clamp(1.0625rem, 0.4vw + 0.98rem, 1.1875rem);
+  --text-xl: clamp(1.375rem, 1vw + 1.15rem, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.8vw + 1.35rem, 2.5rem);
+  --text-3xl: clamp(2.125rem, 3vw + 1.4rem, 3.25rem);
+  --text-4xl: clamp(2.5rem, 5vw + 1.25rem, 4.5rem);
+
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.16em;
+  --leading-tight: 1.12;
+  --leading-snug: 1.35;
+  --leading-normal: 1.7;
+
+  /* ---------- Layout steps ----------
+     Named spacing steps for the two measurements that repeat on every page:
+     the page gutter and the rhythm between major sections. Everything else
+     uses Tailwind's numeric spacing scale (4 = 1rem, 6 = 1.5rem, …). */
+  --spacing-gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --spacing-section: clamp(3.5rem, 7vw, 7rem);
+  --spacing-section-tight: clamp(2.5rem, 5vw, 4.5rem);
+
+  /* The navbar needs more room than Tailwind's md/lg steps allow before the
+     links crowd the wordmark, so it gets its own named breakpoint rather than
+     a one-off pixel value scattered through the markup. */
+  --breakpoint-nav: 55rem;
+
+  --container-vint: 1200px;
+  --container-vint-wide: 1380px;
+  --container-vint-narrow: 860px;
+
+  /* ---------- Radii ---------- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+
+  /* ---------- Shadows ---------- */
+  --shadow-xs: 0 1px 2px rgb(52 33 28 / 0.06);
+  --shadow-sm: 0 2px 8px rgb(52 33 28 / 0.07);
+  --shadow-md: 0 8px 24px rgb(52 33 28 / 0.09);
+  --shadow-lg: 0 18px 48px rgb(52 33 28 / 0.13);
+  --shadow-hero: 0 28px 80px rgb(13 5 6 / 0.45);
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --default-transition-duration: 280ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-fade-up: fade-up 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-hero-zoom: hero-zoom 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes hero-zoom {
+    from { transform: scale(1.08); }
+    to { transform: scale(1); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+/* ==========================================================================
+   Base layer — element defaults only. Anything that belongs to one component
+   is a utility on that component, not a rule here.
+   ========================================================================== */
+
+@layer base {
+  html {
+    /* Stops the page jumping sideways when a modal locks scrolling. */
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply min-h-dvh bg-cream font-sans text-base leading-normal text-body antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif font-bold leading-tight tracking-[-0.01em] text-burgundy;
+    text-wrap: balance;
+  }
+
+  h1 { @apply text-4xl; }
+  h2 { @apply text-3xl; }
+  h3 { @apply text-xl; }
+  h4 { @apply text-lg; }
+
+  p { text-wrap: pretty; }
+
+  /* Keyboard-only focus ring. Mouse clicks stay clean, tabbing is obvious. */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    @apply outline-2 outline-offset-[3px] outline-burgundy-bright rounded-xs;
+  }
+
+  /* Entrance animations are driven by a `data-reveal` attribute that the
+     <Reveal> component flips to "in" when the element scrolls into view. */
+  [data-reveal] {
+    @apply translate-y-6 opacity-0 transition-[opacity,transform] duration-[520ms] ease-out;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal='in'] {
+    @apply translate-y-0 opacity-100;
+  }
+
+  /* Anyone who has asked their OS to reduce motion gets a still, instant site. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    [data-reveal] { @apply translate-y-0 opacity-100; }
+  }
+}
